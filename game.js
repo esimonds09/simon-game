@@ -1,3 +1,9 @@
+// Boolean flag to indicate game has started
+let gameStarted = false;
+
+// Level indicator
+let level = 0;
+
 // Empty array to hold the game colors
 let gamePattern = [];
 
@@ -9,6 +15,10 @@ let buttonColors = ["red", "blue", "green", "yellow"];
 
 // Function to choose next game color
 function nextSequence() {
+  // Increase the level
+  level++;
+  // Update header
+  $("h1").text(`Level ${level}`);
   // Creates random number between 0-3
   let randomNumber = Math.floor(Math.random() * 4);
   // Choose a random color from the color button array with random number
@@ -40,6 +50,20 @@ function animatePress(currentColor) {
   }, 100);
 }
 
+// Function to check answers
+function checkAnswer(currentLevel) {
+  if (gamePattern[currentLevel] === userClickedPattern[currentLevel]) {
+    console.log("Success");
+    if (gamePattern.length === userClickedPattern.length) {
+      setTimeout(() => {
+        nextSequence();
+      }, 1000);
+    }
+  } else {
+    console.log("Failure");
+  }
+}
+
 // Capture the user clicked button
 $(".btn").click(function (e) {
   let colorClicked = e.target.classList[1];
@@ -49,4 +73,19 @@ $(".btn").click(function (e) {
   animatePress(colorClicked);
   //Call to playSound function
   playSound(colorClicked);
+  let colorIndex = userClickedPattern.length - 1;
+  // Send index to check answer
+  checkAnswer(colorIndex);
+});
+
+// Button click to begin the game
+$(document).keypress(function () {
+  if (!gameStarted) {
+    // Call nextSequence to choose color
+    nextSequence();
+    // Change heading to indicate the current level
+    $("h1").text(`Level ${level}`);
+    // Indicate game has started
+    gameStarted = true;
+  }
 });
