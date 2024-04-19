@@ -1,6 +1,9 @@
 // Empty array to hold the game colors
 let gamePattern = [];
 
+// Array of color pattern chosen by user
+let userClickedPattern = [];
+
 // Button colors available for selection
 let buttonColors = ["red", "blue", "green", "yellow"];
 
@@ -21,3 +24,10 @@ function nextSequence() {
   // Play audio
   buttonAudio.play();
 }
+
+// Capture the user clicked button
+$(".btn").click(function (e) {
+  let colorClicked = e.target.classList[1];
+  // Add selected color to array
+  userClickedPattern.push(colorClicked);
+});
