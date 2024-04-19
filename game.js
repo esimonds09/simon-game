@@ -30,11 +30,23 @@ function playSound(name) {
   buttonAudio.play();
 }
 
+// Function to animate button press
+function animatePress(currentColor) {
+  // Add pressed class to the selected button
+  $(`#${currentColor}`).addClass("pressed");
+  // Remove pressed class from selected button after 100ms
+  setTimeout(() => {
+    $(`#${currentColor}`).removeClass("pressed");
+  }, 100);
+}
+
 // Capture the user clicked button
 $(".btn").click(function (e) {
   let colorClicked = e.target.classList[1];
   // Add selected color to array
   userClickedPattern.push(colorClicked);
+  // Animate button
+  animatePress(colorClicked);
   //Call to playSound function
   playSound(colorClicked);
 });
