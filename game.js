@@ -12,4 +12,12 @@ function nextSequence() {
   let randomChosenColor = buttonColors[randomNumber];
   // Adds the random color to the array
   gamePattern.push(randomChosenColor);
+
+  // Create a button flash effect for chosen button color
+  $(`#${randomChosenColor}`).fadeIn(50).fadeOut(50).fadeIn(50);
+
+  // Create an audio for selected button color
+  let buttonAudio = new Audio(`./sounds/${randomChosenColor}.mp3`);
+  // Play audio
+  buttonAudio.play();
 }
